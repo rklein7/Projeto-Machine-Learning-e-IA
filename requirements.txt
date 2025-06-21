@@ -1,0 +1,8 @@
+pandas
+numpy
+matplotlib
+seaborn
+unidecode
+scikit-learn
+tensorflow
+shap
