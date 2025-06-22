@@ -12,7 +12,7 @@ Funcionamento:
     - `evadiu`: booleano indicando se o aluno tem risco de evasão.
     - `probabilidade`: valor entre 0 e 1 com a confiança do modelo.
 
-⚙Limiar de decisão:
+Limiar de decisão:
 - A evasão só é prevista se a probabilidade for maior que 0.7, aumentando a precisão e reduzindo falsos positivos.
 
 Objetivo:
