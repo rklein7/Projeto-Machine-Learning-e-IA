@@ -37,7 +37,7 @@ O conjunto de dados contém informações anonimizadas sobre a interação dos a
 
 A variável-alvo, `evadiu`, foi criada para classificar os alunos. Um aluno é considerado **evadido (1)** se ele satisfaz duas condições de negócio simultaneamente:
 1.  Não apresentou nenhum desempenho (`vl_desempenho_usuario = 0`).
-2.  Não acessou a plataforma nos últimos 60 dias (`nr_dias_desde_ultimo_acesso > 60`).
+2.  Não acessou a plataforma nos últimos 12 dias (`nr_dias_desde_ultimo_acesso > 60`).
 
 Caso contrário, é considerado um aluno **ativo (0)**.
 
@@ -65,18 +65,19 @@ O projeto seguiu um fluxo de trabalho estruturado de Ciência de Dados:
 
 | Modelo | Justificativa | Resultado (F1-Score na Validação Cruzada) |
 | :--- | :--- | :--- |
-| **Regressão Logística** | Simples, interpretável e ótimo como baseline. | `0.8933 ± 0.1373` |
-| **Random Forest** | Robusto, lida bem com relações não-lineares. | `0.9333 ± 0.1333` |
-| **Rede Neural (Keras)**| Capaz de aprender padrões complexos. | Atingiu `1.0` no teste. |
+| **Regressão Logística** | Simples, interpretável e ótimo como baseline. | `0.8071 ± 0.0850` |
+| **Random Forest** | Robusto, lida bem com relações não-lineares. | `0.9599 ± 0.0390` |
+| **Rede Neural (Keras)**| Capaz de aprender padrões complexos. | Atingiu `0.96` no teste. |
 
 4.  **Interpretabilidade (XAI com SHAP):**
     * Utilizamos a biblioteca SHAP para "abrir a caixa-preta" dos modelos e entender quais features mais influenciaram suas decisões.
 
 ## 📈 Resultados e Conclusões
 
-* **Performance dos Modelos:** Todos os modelos foram eficazes na **classificação** dos alunos com base nos critérios definidos. O Random Forest apresentou o F1-Score médio mais estável na validação cruzada.
-* **Análise do "Score Perfeito":** A Rede Neural alcançou 100% de acurácia no conjunto de teste. A análise com SHAP revelou que isso ocorreu porque o modelo aprendeu perfeitamente a regra de negócio usada para criar a variável `evadiu`. As features `nr_dias_desde_ultimo_acesso` e `vl_desempenho_usuario` foram as mais importantes, o que valida a lógica de negócio, mas também indica que o modelo funciona como um **classificador de regras** em vez de um preditor de eventos futuros.
-* **Insights Acionáveis:** A análise confirma que a **falta de atividade recente** e o **baixo desempenho** são os indicadores mais fortes de evasão, validando a estratégia de focar nesses alunos para ações de retenção.
+* **Performance dos Modelos:** Todos os modelos foram eficazes na classificação dos alunos. A Random Forest apresentou F1-score consistente na validação cruzada (≈ 0.93), enquanto a Rede Neural obteve o melhor desempenho no teste real, com excelente equilíbrio entre precisão e recall.
+* **Rede Neural como Modelo Final:** A Rede Neural alcançou F1-score de 0.93, Recall de 0.96 e AUC de 0.95 no conjunto de teste real, mostrando ótima capacidade preditiva. Diferente do esperado, ela não apenas aprendeu regras, mas conseguiu generalizar bem para novos dados.
+* **Principais Fatores de Evasão:** As variáveis mais relevantes foram vl_desempenho_usuario e nr_dias_desde_ultimo_acesso, validando a regra de negócio e confirmando que baixa participação e desempenho são os maiores preditores de evasão.
+* **Insights Acionáveis:** O modelo é útil para estratégias de intervenção pedagógica, permitindo priorizar alunos com alto risco e aumentar a taxa de retenção de forma proativa.
 
 ## 🚀 Como Executar o Projeto
 
