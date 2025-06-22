@@ -37,7 +37,7 @@ O conjunto de dados contém informações anonimizadas sobre a interação dos a
 
 A variável-alvo, `evadiu`, foi criada para classificar os alunos. Um aluno é considerado **evadido (1)** se ele satisfaz duas condições de negócio simultaneamente:
 1.  Não apresentou nenhum desempenho (`vl_desempenho_usuario = 0`).
-2.  Não acessou a plataforma nos últimos 12 dias (`nr_dias_desde_ultimo_acesso > 60`).
+2.  Não acessou a plataforma nos últimos 12 dias (`nr_dias_desde_ultimo_acesso <= 12`).
 
 Caso contrário, é considerado um aluno **ativo (0)**.
 
