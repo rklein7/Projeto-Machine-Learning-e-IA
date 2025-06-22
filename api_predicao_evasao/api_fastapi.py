@@ -1,3 +1,27 @@
+"""
+API de Previsão de Evasão — Projeto de Machine Learning & IA
+
+Esta API foi desenvolvida com FastAPI para disponibilizar em produção o modelo de machine learning 
+treinado para prever a evasão de estudantes em cursos online.
+
+Funcionamento:
+- Recebe os dados de um aluno via requisição POST no endpoint `/prever/`.
+- Os dados são automaticamente validados (são esperadas 28 variáveis numéricas relacionadas ao comportamento do aluno).
+- O scaler treinado é aplicado para padronizar os dados de entrada.
+- O modelo de Random Forest realiza a predição, retornando:
+    - `evadiu`: booleano indicando se o aluno tem risco de evasão.
+    - `probabilidade`: valor entre 0 e 1 com a confiança do modelo.
+
+⚙Limiar de decisão:
+- A evasão só é prevista se a probabilidade for maior que 0.7, aumentando a precisão e reduzindo falsos positivos.
+
+Objetivo:
+Fornecer uma interface acessível para integrar o modelo a sistemas externos (ex: dashboards, CRMs, relatórios escolares),
+possibilitando ações preventivas baseadas em dados reais.
+
+"""
+
+
 from fastapi import FastAPI
 from pydantic import BaseModel
 import joblib
